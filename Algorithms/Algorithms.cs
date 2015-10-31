@@ -35,5 +35,35 @@ namespace Algorithms
 
             return -1;
         }
+
+        /// <summary>
+        /// Find maximum distance for equal elements in specified array of length N
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public int EqualElementsMaxDistance(int[] A)
+        {
+            if (A.Length == 0)
+            {
+                return -1;
+            }
+
+            var dict = new Dictionary<int, List<int>>();
+            var len = A.Length;
+
+            for (var i = 0; i < len; ++i)
+            {
+                if (!dict.ContainsKey(A[i]))
+                {
+                    dict.Add(A[i], new List<int> { i });
+                }
+                else
+                {
+                    dict[A[i]].Add(i);
+                }
+            }
+
+            return dict.Select(x => x.Value.Last() - x.Value.First()).Max();
+        }
     }
 }
